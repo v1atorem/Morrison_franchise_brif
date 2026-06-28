@@ -519,7 +519,7 @@
 
 <script>
 // ── ВСТАВЬТЕ СЮДА URL вашего Google Apps Script Web App ──────────────────────
-const SCRIPT_URL = "ВСТАВЬТЕ_URL_СЮДА";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyshNsyMnjP04SniWY9VbFwgQIelfQmZApkQHQ1XXqwBes4btU1zFVjLQ79VQjSgchfDA/exec";
 // Пример: "https://script.google.com/macros/s/AKfycb.../exec"
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -677,7 +677,7 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
 
   // Отправляем в Google Sheets
   try {
-    if (SCRIPT_URL && SCRIPT_URL !== 'ВСТАВЬТЕ_URL_СЮДА') {
+    if (SCRIPT_URL && SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyshNsyMnjP04SniWY9VbFwgQIelfQmZApkQHQ1XXqwBes4btU1zFVjLQ79VQjSgchfDA/exec') {
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
