@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morrison Academy — Анкета франшизы</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #080606;
+    color: #E8E3E3;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 48px 40px 36px;
+    background: #0F0A0A;
+    border: 1px solid #2A1515;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(220,40,40,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .logo {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #DC2828;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .header h1 span { color: #DC2828; }
+  .header p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+  .pill {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #DC2828;
+    color: #DC2828;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  /* СЕКЦИЯ */
+  .section {
+    background: #0F0A0A;
+    border: 1px solid #1E1010;
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #DC2828;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #1E1010;
+  }
+
+  /* ПОЛЯ */
+  .field { margin-bottom: 22px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #D0CBCB;
+    margin-bottom: 8px;
+  }
+  label .req { color: #DC2828; margin-left: 3px; }
+  label .hint {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #666;
+    margin-top: 3px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    background: #140E0E;
+    border: 1px solid #2A1818;
+    border-radius: 8px;
+    color: #E8E3E3;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #DC2828;
+    background: #170F0F;
+  }
+  select option { background: #140E0E; color: #E8E3E3; }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* RADIO / CHECKBOX */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .options.row { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+
+  .opt-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    background: #140E0E;
+    border: 1px solid #2A1818;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #D0CBCB;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .opt-label:hover { border-color: #6B1414; background: #170F0F; }
+  .opt-label input[type="radio"],
+  .opt-label input[type="checkbox"] { display: none; }
+  .opt-label.selected {
+    border-color: #DC2828;
+    background: #1E0A0A;
+    color: #fff;
+  }
+  .opt-label.selected .dot { background: #DC2828; }
+
+  .dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .checkbox-dot {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    border: 2px solid #444;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .opt-label.selected .checkbox-dot {
+    background: #DC2828;
+    border-color: #DC2828;
+  }
+  .opt-label.selected .checkbox-dot::after {
+    content: '✓';
+    position: absolute;
+    top: -2px; left: 1px;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  /* SCORE BADGE */
+  .score-bar {
+    background: #140E0E;
+    border: 1px solid #2A1818;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .score-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: #DC2828;
+    line-height: 1;
+    min-width: 64px;
+    text-align: center;
+  }
+  .score-label { font-size: 12px; color: #666; margin-top: 4px; }
+  .score-verdict {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .score-desc { font-size: 12px; color: #888; margin-top: 4px; line-height: 1.5; }
+
+  /* DISQUALIFIER */
+  .disq-banner {
+    display: none;
+    background: #200808;
+    border: 1px solid #6B1414;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #E86E6E;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+  .disq-banner strong { color: #DC2828; }
+
+  /* SUBMIT */
+  .submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #DC2828 0%, #A81818 100%);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(220,40,40,0.4); }
+  .submit-btn:active { transform: translateY(0); }
+
+  /* РЕЗУЛЬТАТ */
+  #result {
+    display: none;
+    background: #0F0A0A;
+    border: 1px solid #1E1010;
+    border-radius: 14px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  #result .big { font-size: 56px; margin-bottom: 8px; }
+  #result h2 { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+  #result p { font-size: 14px; color: #888; line-height: 1.7; }
+  #result .next-steps {
+    background: #140E0E;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+  }
+  #result .next-steps h3 { font-size: 12px; color: #DC2828; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  #result .next-steps li { font-size: 13px; color: #D0CBCB; margin-bottom: 8px; list-style: none; padding-left: 20px; position: relative; line-height: 1.5;}
+  #result .next-steps li::before { content: '→'; position: absolute; left: 0; color: #DC2828; }
+
+  /* PRINT */
+  .print-btn {
+    background: transparent;
+    border: 1px solid #3A2020;
+    border-radius: 8px;
+    color: #888;
+    font-size: 12px;
+    padding: 8px 20px;
+    cursor: pointer;
+    margin-top: 16px;
+    font-family: Arial, sans-serif;
+    transition: all 0.2s;
+  }
+  .print-btn:hover { border-color: #DC2828; color: #DC2828; }
+
+  /* Divider */
+  .div { height: 1px; background: #1A0E0E; margin: 4px 0 20px; }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .submit-btn, .print-btn, #result { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="pill">Партнёрская программа · Morrison Academy</div>
+    <h1>Анкета <span>квалификации</span><br>франшизы</h1>
+    <p>Заполните анкету — это займёт 3–5 минут.<br>
+    После проверки мы свяжемся и запишем вас на встречу с CEO.</p>
+  </div>
+
+  <form id="mainForm" novalidate>
+
+    <!-- СЕКЦИЯ 1: КОНТАКТЫ -->
+    <div class="section">
+      <div class="section-title">01 · Контактная информация</div>
+
+      <div class="field">
+        <label>Имя и фамилия <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="Асель Нурланова" required>
+      </div>
+
+      <div class="field">
+        <label>WhatsApp / Telegram <span class="req">*</span>
+          <span class="hint">Номер с кодом страны (+7...)</span>
+        </label>
+        <input type="tel" id="phone" placeholder="+7 701 123 45 67" required>
+      </div>
+
+      <div class="field">
+        <label>Город / Регион <span class="req">*</span>
+          <span class="hint">Ваш текущий город проживания — это потенциальный регион для франшизы</span>
+        </label>
+        <input type="text" id="city" placeholder="Алматы" required>
+      </div>
+
+      <div class="field">
+        <label>Источник <span class="hint">Откуда узнали о Morrison Academy?</span></label>
+        <select id="source">
+          <option value="">— Выберите —</option>
+          <option>Instagram реклама</option>
+          <option>Instagram органика / пост</option>
+          <option>Рекомендация знакомых</option>
+          <option>Google / поиск</option>
+          <option>Telegram</option>
+          <option>Другое</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- СЕКЦИЯ 2: ОПЫТ И СТАТУС -->
+    <div class="section">
+      <div class="section-title">02 · Ваш предпринимательский профиль</div>
+
+      <div class="field">
+        <label>Текущий статус <span class="req">*</span></label>
+        <div class="options" id="status_options">
+          <label class="opt-label"><input type="radio" name="status" value="Наёмный сотрудник"><span class="dot"></span>Наёмный сотрудник</label>
+          <label class="opt-label"><input type="radio" name="status" value="Начинающий предприниматель (до 2 лет в бизнесе)"><span class="dot"></span>Начинающий предприниматель <span style="color:#666;font-size:11px;margin-left:6px">до 2 лет в бизнесе</span></label>
+          <label class="opt-label"><input type="radio" name="status" value="Опытный предприниматель (2+ лет)"><span class="dot"></span>Опытный предприниматель <span style="color:#666;font-size:11px;margin-left:6px">2+ лет</span></label>
+          <label class="opt-label"><input type="radio" name="status" value="Инвестор / партнёр"><span class="dot"></span>Инвестор / партнёр</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Сфера бизнеса / деятельности
+          <span class="hint">Если есть или был бизнес — кратко опишите. Если нет — напишите текущую профессию.</span>
+        </label>
+        <input type="text" id="business" placeholder="Например: торговля, IT, строительство, образование...">
+      </div>
+
+      <div class="field">
+        <label>Есть ли опыт в образовательном бизнесе?</label>
+        <div class="options row" id="edu_options">
+          <label class="opt-label"><input type="radio" name="edu" value="Да"><span class="dot"></span>Да</label>
+          <label class="opt-label"><input type="radio" name="edu" value="Нет"><span class="dot"></span>Нет</label>
+          <label class="opt-label"><input type="radio" name="edu" value="Смежная сфера"><span class="dot"></span>Смежная сфера</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕКЦИЯ 3: ФИНАНСОВАЯ ГОТОВНОСТЬ (КЛЮЧЕВАЯ) -->
+    <div class="section">
+      <div class="section-title">03 · Финансовая готовность <span style="color:#666;font-size:10px;font-weight:400;letter-spacing:0">(ключевой блок квалификации)</span></div>
+
+      <div class="field">
+        <label>Какой стартовый капитал готовы рассматривать? <span class="req">*</span>
+          <span class="hint">Паушальный взнос Morrison Academy — от 3 000 000 ₸</span>
+        </label>
+        <div class="options" id="budget_options">
+          <label class="opt-label" data-disq="true"><input type="radio" name="budget" value="Менее 3 млн ₸"><span class="dot"></span>Менее 3 млн ₸ <span style="color:#555;font-size:11px;margin-left:6px">— ниже минимального взноса</span></label>
+          <label class="opt-label"><input type="radio" name="budget" value="3–5 млн ₸"><span class="dot"></span>3–5 млн ₸</label>
+          <label class="opt-label"><input type="radio" name="budget" value="5–10 млн ₸"><span class="dot"></span>5–10 млн ₸</label>
+          <label class="opt-label"><input type="radio" name="budget" value="10–15 млн ₸"><span class="dot"></span>10–15 млн ₸</label>
+          <label class="opt-label"><input type="radio" name="budget" value="15+ млн ₸ (рассматриваю крупный формат)"><span class="dot"></span>15+ млн ₸ <span style="color:#666;font-size:11px;margin-left:6px">крупный формат</span></label>
+        </div>
+        <div class="disq-banner" id="disq_budget">
+          <strong>⚠ Бюджет ниже минимального взноса.</strong><br>
+          Минимальный паушальный взнос Morrison Academy — 3 000 000 ₸. Мы не сможем двигаться дальше с этим бюджетом. Рекомендуем рассмотреть через 3–6 месяцев, когда капитал будет готов.
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Капитал уже готов или в процессе накопления? <span class="req">*</span></label>
+        <div class="options" id="capital_options">
+          <label class="opt-label"><input type="radio" name="capital" value="Готов — могу инвестировать сейчас"><span class="dot"></span>Готов — могу инвестировать сейчас</label>
+          <label class="opt-label"><input type="radio" name="capital" value="Готов через 1–3 месяца"><span class="dot"></span>Готов через 1–3 месяца</label>
+          <label class="opt-label"><input type="radio" name="capital" value="Готов через 3–6 месяцев"><span class="dot"></span>Готов через 3–6 месяцев</label>
+          <label class="opt-label" data-cold="true"><input type="radio" name="capital" value="Планирую накопить (более 6 месяцев)"><span class="dot"></span>Планирую накопить <span style="color:#555;font-size:11px;margin-left:6px">более 6 месяцев</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Рассматриваете кредитное финансирование?</label>
+        <div class="options row" id="credit_options">
+          <label class="opt-label"><input type="radio" name="credit" value="Только собственные средства"><span class="dot"></span>Только свои средства</label>
+          <label class="opt-label"><input type="radio" name="credit" value="Рассматриваю кредит"><span class="dot"></span>Рассматриваю кредит</label>
+          <label class="opt-label"><input type="radio" name="credit" value="Есть партнёр-инвестор"><span class="dot"></span>Есть партнёр-инвестор</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕКЦИЯ 4: МОТИВАЦИЯ -->
+    <div class="section">
+      <div class="section-title">04 · Мотивация и ожидания</div>
+
+      <div class="field">
+        <label>Почему рассматриваете франшизу, а не собственный бизнес с нуля?</label>
+        <div class="options" id="why_options">
+          <label class="opt-label"><input type="radio" name="why" value="Хочу готовую систему без риска"><span class="dot"></span>Хочу готовую систему — снизить риск</label>
+          <label class="opt-label"><input type="radio" name="why" value="Нет времени строить с нуля"><span class="dot"></span>Нет времени строить с нуля</label>
+          <label class="opt-label"><input type="radio" name="why" value="Нет опыта в образовании — нужна методология"><span class="dot"></span>Нет опыта в образовании — нужна методология</label>
+          <label class="opt-label"><input type="radio" name="why" value="Верю в рынок EdTech, хочу зайти быстро"><span class="dot"></span>Верю в рынок EdTech, хочу зайти быстро</label>
+          <label class="opt-label"><input type="radio" name="why" value="Хочу диверсифицировать бизнес-портфель"><span class="dot"></span>Хочу диверсифицировать бизнес-портфель</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Что для вас самое важное при выборе? <span class="hint">Можно несколько</span></label>
+        <div class="options" id="priority_options">
+          <label class="opt-label"><input type="checkbox" value="Срок окупаемости"><span class="checkbox-dot"></span>Срок окупаемости</label>
+          <label class="opt-label"><input type="checkbox" value="Размер потенциального дохода"><span class="checkbox-dot"></span>Размер потенциального дохода</label>
+          <label class="opt-label"><input type="checkbox" value="Надёжность и репутация бренда"><span class="checkbox-dot"></span>Надёжность и репутация бренда</label>
+          <label class="opt-label"><input type="checkbox" value="Поддержка от франчайзора"><span class="checkbox-dot"></span>Поддержка от франчайзора</label>
+          <label class="opt-label"><input type="checkbox" value="Работа онлайн без офиса"><span class="checkbox-dot"></span>Работа онлайн — без офиса и аренды</label>
+          <label class="opt-label"><input type="checkbox" value="Социальная миссия (образование детей)"><span class="checkbox-dot"></span>Социальная миссия — образование детей</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Когда планируете принять итоговое решение? <span class="req">*</span></label>
+        <div class="options" id="timeline_options">
+          <label class="opt-label"><input type="radio" name="timeline" value="В ближайшие 2–4 недели"><span class="dot"></span>В ближайшие 2–4 недели</label>
+          <label class="opt-label"><input type="radio" name="timeline" value="1–2 месяца"><span class="dot"></span>1–2 месяца</label>
+          <label class="opt-label"><input type="radio" name="timeline" value="2–4 месяца"><span class="dot"></span>2–4 месяца</label>
+          <label class="opt-label" data-cold="true"><input type="radio" name="timeline" value="Просто изучаю, без конкретных сроков"><span class="dot"></span>Просто изучаю <span style="color:#555;font-size:11px;margin-left:6px">без конкретных сроков</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕКЦИЯ 5: ВОПРОСЫ -->
+    <div class="section">
+      <div class="section-title">05 · Ваши вопросы</div>
+
+      <div class="field">
+        <label>Что вы хотите прояснить на встрече с CEO?
+          <span class="hint">Ваши главные вопросы, сомнения или то, что важно услышать лично</span>
+        </label>
+        <textarea id="questions" placeholder="Например: хочу понять реальные цифры по Алматы, есть вопросы по поддержке в первые месяцы..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Удобное время для встречи
+          <span class="hint">Дата и время (по Алматы), когда вам удобно</span>
+        </label>
+        <input type="text" id="meettime" placeholder="Например: среда–пятница, после 16:00">
+      </div>
+    </div>
+
+    <!-- SCORE PREVIEW -->
+    <div class="section" id="score_section" style="display:none">
+      <div class="section-title">Предварительная квалификация</div>
+      <div class="score-bar">
+        <div>
+          <div class="score-num" id="score_num">—</div>
+          <div class="score-label">из 100</div>
+        </div>
+        <div>
+          <div class="score-verdict" id="score_verdict"></div>
+          <div class="score-desc" id="score_desc"></div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Отправить анкету →</button>
+
+  </form>
+
+  <!-- РЕЗУЛЬТАТ -->
+  <div id="result">
+    <div class="big" id="result_emoji">🏆</div>
+    <h2 id="result_title">Анкета принята!</h2>
+    <p id="result_text">Хантер свяжется с вами в течение 2 часов для подтверждения встречи с CEO Morrison Academy.</p>
+
+    <div class="next-steps" id="next_steps_block">
+      <h3>Следующие шаги</h3>
+      <ul id="next_steps_list"></ul>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨 Распечатать / сохранить PDF</button>
+  </div>
+
+</div>
+
+<script>
+// ── ВСТАВЬТЕ СЮДА URL вашего Google Apps Script Web App ──────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyshNsyMnjP04SniWY9VbFwgQIelfQmZApkQHQ1XXqwBes4btU1zFVjLQ79VQjSgchfDA/exec";
+// Пример: "https://script.google.com/macros/s/AKfycb.../exec"
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Интерактивность радио/чекбоксов ──────────────────────────────────────────
+document.querySelectorAll('.opt-label').forEach(label => {
+  label.addEventListener('click', function() {
+    const input = this.querySelector('input');
+    if (input.type === 'radio') {
+      const name = input.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        r.closest('.opt-label').classList.remove('selected');
+      });
+      this.classList.add('selected');
+      input.checked = true;
+    } else {
+      this.classList.toggle('selected');
+      input.checked = this.classList.contains('selected');
+    }
+    updateScore();
+    checkDisqualifiers();
+  });
+});
+
+// ── Дисквалификаторы ──────────────────────────────────────────────────────────
+function checkDisqualifiers() {
+  const budget = document.querySelector('input[name="budget"]:checked');
+  const disqBanner = document.getElementById('disq_budget');
+  if (budget && budget.value === 'Менее 3 млн ₸') {
+    disqBanner.style.display = 'block';
+  } else {
+    disqBanner.style.display = 'none';
+  }
+}
+
+// ── Скоринг ───────────────────────────────────────────────────────────────────
+function updateScore() {
+  let score = 0;
+  const section = document.getElementById('score_section');
+
+  const budget = document.querySelector('input[name="budget"]:checked');
+  if (budget) {
+    const bmap = {
+      'Менее 3 млн ₸': 0, '3–5 млн ₸': 20, '5–10 млн ₸': 25,
+      '10–15 млн ₸': 30, '15+ млн ₸ (рассматриваю крупный формат)': 30
+    };
+    score += bmap[budget.value] || 0;
+  }
+
+  const capital = document.querySelector('input[name="capital"]:checked');
+  if (capital) {
+    const cmap = {
+      'Готов — могу инвестировать сейчас': 25,
+      'Готов через 1–3 месяца': 20,
+      'Готов через 3–6 месяцев': 10,
+      'Планирую накопить (более 6 месяцев)': 0
+    };
+    score += cmap[capital.value] || 0;
+  }
+
+  const timeline = document.querySelector('input[name="timeline"]:checked');
+  if (timeline) {
+    const tmap = {
+      'В ближайшие 2–4 недели': 25,
+      '1–2 месяца': 20,
+      '2–4 месяца': 12,
+      'Просто изучаю, без конкретных сроков': 0
+    };
+    score += tmap[timeline.value] || 0;
+  }
+
+  const status = document.querySelector('input[name="status"]:checked');
+  if (status) {
+    const smap = {
+      'Наёмный сотрудник': 5,
+      'Начинающий предприниматель (до 2 лет в бизнесе)': 10,
+      'Опытный предприниматель (2+ лет)': 20,
+      'Инвестор / партнёр': 20
+    };
+    score += smap[status.value] || 0;
+  }
+
+  if (score > 0) {
+    section.style.display = 'block';
+    document.getElementById('score_num').textContent = score;
+    const vEl = document.getElementById('score_verdict');
+    const dEl = document.getElementById('score_desc');
+
+    if (score >= 80) {
+      vEl.textContent = '🟢 Высокий приоритет'; vEl.style.color = '#2ECC71';
+      dEl.textContent = 'Лид готов к встрече с CEO. Рекомендуем записать в течение 24 часов.';
+    } else if (score >= 55) {
+      vEl.textContent = '🟡 Средний приоритет'; vEl.style.color = '#F1C40F';
+      dEl.textContent = 'Лид перспективен. Уточните готовность капитала и сроки принятия решения.';
+    } else if (score >= 30) {
+      vEl.textContent = '🟠 Холодный лид'; vEl.style.color = '#E67E22';
+      dEl.textContent = 'Лид пока не готов. Добавьте в прогрев и вернитесь через 1–2 месяца.';
+    } else {
+      vEl.textContent = '🔴 Не квалифицирован'; vEl.style.color = '#E74C3C';
+      dEl.textContent = 'Бюджет или сроки не соответствуют требованиям франшизы.';
+    }
+    document.getElementById('score_num').style.color = score >= 55 ? '#2ECC71' : (score >= 30 ? '#F1C40F' : '#E74C3C');
+  }
+}
+
+// ── Отправка ──────────────────────────────────────────────────────────────────
+document.getElementById('mainForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const name     = document.getElementById('name').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
+  const city     = document.getElementById('city').value.trim();
+  const budget   = document.querySelector('input[name="budget"]:checked');
+  const timeline = document.querySelector('input[name="timeline"]:checked');
+
+  if (!name || !phone || !city || !budget || !timeline) {
+    alert('Пожалуйста, заполните все обязательные поля (*)');
+    return;
+  }
+
+  const score = parseInt(document.getElementById('score_num').textContent) || 0;
+  const isQual    = score >= 55 && budget.value !== 'Менее 3 млн ₸';
+  const isCold    = score >= 30 && score < 55;
+  const isDisq    = budget.value === 'Менее 3 млн ₸';
+  const qualification = isQual ? '🟢 Квалифицирован' : (isCold ? '🟡 Прогрев' : '🔴 Не квалифицирован');
+
+  // Собираем приоритеты (чекбоксы)
+  const priorities = [...document.querySelectorAll('#priority_options input[type="checkbox"]:checked')]
+    .map(cb => cb.value).join(', ');
+
+  const payload = {
+    name,
+    phone,
+    city,
+    source:        document.getElementById('source').value,
+    status:        document.querySelector('input[name="status"]:checked')?.value || '',
+    business:      document.getElementById('business').value,
+    edu:           document.querySelector('input[name="edu"]:checked')?.value || '',
+    budget:        budget.value,
+    capital:       document.querySelector('input[name="capital"]:checked')?.value || '',
+    credit:        document.querySelector('input[name="credit"]:checked')?.value || '',
+    why:           document.querySelector('input[name="why"]:checked')?.value || '',
+    priorities,
+    timeline:      timeline.value,
+    questions:     document.getElementById('questions').value,
+    meettime:      document.getElementById('meettime').value,
+    score,
+    qualification,
+  };
+
+  // Показываем лоадер
+  const btn = this.querySelector('.submit-btn');
+  btn.textContent = '⏳ Отправляем...';
+  btn.disabled = true;
+
+  // Отправляем в Google Sheets
+  try {
+    if (SCRIPT_URL && SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyshNsyMnjP04SniWY9VbFwgQIelfQmZApkQHQ1XXqwBes4btU1zFVjLQ79VQjSgchfDA/exec') {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    }
+  } catch (err) {
+    console.warn('Ошибка отправки:', err);
+  }
+
+  // Показываем результат
+  this.style.display = 'none';
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+
+  if (isQual) {
+    document.getElementById('result_emoji').textContent = '🟢';
+    document.getElementById('result_title').textContent = name.split(' ')[0] + ', вы прошли квалификацию!';
+    document.getElementById('result_text').textContent =
+      'Хантер свяжется с вами по WhatsApp (' + phone + ') в течение 2 часов. Встреча с CEO Morrison Academy пройдёт онлайн в удобное время.';
+    document.getElementById('next_steps_list').innerHTML = `
+      <li>Хантер пишет вам в WhatsApp — подтверждаем встречу</li>
+      <li>Получаете финансовую модель для вашего города заранее</li>
+      <li>Встреча с CEO — 45–60 минут: разбираем P&L, условия, ваш регион</li>
+      <li>Принимаете решение — без давления</li>
+    `;
+  } else if (isDisq) {
+    document.getElementById('result_emoji').textContent = '⏳';
+    document.getElementById('result_title').textContent = 'Анкета получена';
+    document.getElementById('result_text').textContent =
+      'Текущий бюджет ниже минимального взноса (3 000 000 ₸). Мы сохраним вашу анкету и вернёмся через 3–6 месяцев.';
+    document.getElementById('next_steps_list').innerHTML = `
+      <li>Хантер добавит вас в базу прогрева</li>
+      <li>Будете получать актуальную информацию о франшизе</li>
+      <li>Свяжемся, когда будете готовы к инвестициям</li>
+    `;
+  } else {
+    document.getElementById('result_emoji').textContent = '🟡';
+    document.getElementById('result_title').textContent = 'Анкета принята!';
+    document.getElementById('result_text').textContent =
+      'Хантер свяжется с вами для уточнения деталей и при подтверждении запишет на встречу с CEO.';
+    document.getElementById('next_steps_list').innerHTML = `
+      <li>Хантер напишет в WhatsApp для уточнения готовности</li>
+      <li>При подтверждении — запись на встречу с CEO</li>
+    `;
+  }
+
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>
+</body>
+</html>
