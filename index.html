@@ -505,7 +505,7 @@
   <div id="result">
     <div class="big" id="result_emoji">🏆</div>
     <h2 id="result_title">Анкета принята!</h2>
-    <p id="result_text">Менеджер свяжется с вами в течение 2 часов для подтверждения встречи с CEO Morrison Academy.</p>
+    <p id="result_text">Хантер свяжется с вами в течение 2 часов для подтверждения встречи с CEO Morrison Academy.</p>
 
     <div class="next-steps" id="next_steps_block">
       <h3>Следующие шаги</h3>
@@ -677,14 +677,12 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
 
   // Отправляем в Google Sheets
   try {
-    if (SCRIPT_URL && SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyshNsyMnjP04SniWY9VbFwgQIelfQmZApkQHQ1XXqwBes4btU1zFVjLQ79VQjSgchfDA/exec') {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-    }
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
   } catch (err) {
     console.warn('Ошибка отправки:', err);
   }
@@ -698,9 +696,9 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
     document.getElementById('result_emoji').textContent = '🟢';
     document.getElementById('result_title').textContent = name.split(' ')[0] + ', вы прошли квалификацию!';
     document.getElementById('result_text').textContent =
-      'Менеджер свяжется с вами по WhatsApp (' + phone + ') в течение 2 часов. Встреча с CEO Morrison Academy пройдёт онлайн в удобное время.';
+      'Хантер свяжется с вами по WhatsApp (' + phone + ') в течение 2 часов. Встреча с CEO Morrison Academy пройдёт онлайн в удобное время.';
     document.getElementById('next_steps_list').innerHTML = `
-      <li>Менеджер пишет вам в WhatsApp — подтверждаем встречу</li>
+      <li>Хантер пишет вам в WhatsApp — подтверждаем встречу</li>
       <li>Получаете финансовую модель для вашего города заранее</li>
       <li>Встреча с CEO — 45–60 минут: разбираем P&L, условия, ваш регион</li>
       <li>Принимаете решение — без давления</li>
@@ -711,7 +709,7 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
     document.getElementById('result_text').textContent =
       'Текущий бюджет ниже минимального взноса (3 000 000 ₸). Мы сохраним вашу анкету и вернёмся через 3–6 месяцев.';
     document.getElementById('next_steps_list').innerHTML = `
-      <li>Менеджер добавит вас в базу прогрева</li>
+      <li>Хантер добавит вас в базу прогрева</li>
       <li>Будете получать актуальную информацию о франшизе</li>
       <li>Свяжемся, когда будете готовы к инвестициям</li>
     `;
@@ -719,9 +717,9 @@ document.getElementById('mainForm').addEventListener('submit', async function(e)
     document.getElementById('result_emoji').textContent = '🟡';
     document.getElementById('result_title').textContent = 'Анкета принята!';
     document.getElementById('result_text').textContent =
-      'Менеджер свяжется с вами для уточнения деталей и при подтверждении запишет на встречу с CEO.';
+      'Хантер свяжется с вами для уточнения деталей и при подтверждении запишет на встречу с CEO.';
     document.getElementById('next_steps_list').innerHTML = `
-      <li>Менеджер напишет в WhatsApp для уточнения готовности</li>
+      <li>Хантер напишет в WhatsApp для уточнения готовности</li>
       <li>При подтверждении — запись на встречу с CEO</li>
     `;
   }
